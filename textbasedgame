@@ -1,0 +1,122 @@
+#include<iostream>
+using namespace std;
+
+
+void MonsterGen();
+
+
+int main() {
+cout << "press q at anytime to quit the game" << endl;
+
+char direction;
+int room = 1;
+do {
+
+switch (room) {
+case 1:
+cout << "you're in room 1, theres only 1 other door. go (e)ast." << endl;
+cin >> direction;
+if (direction == 'e')
+room = 2;
+break;
+case 2:
+cout << "you're in room 2, you can go (w)est or (n)orth or (s)outh." << endl;
+cin >> direction;
+if (direction == 'w')
+room = 1;
+if (direction == 'n')
+room = 3;
+if (direction == 's')
+room = 4;
+break;
+case 3:
+MonsterGen();
+cout << "you're in room 3, dead end you have to go back. go (s)outh." << endl;
+cin >> direction;
+if (direction == 's')
+room = 2;
+break;
+case 4:
+cout << "you're in room 4 , you can go (e)ast or (n)orth." << endl;
+cin >> direction;
+if (direction == 'n')
+room = 2;
+if (direction == 'e')
+room = 5;
+break;
+case 5:
+cout << "you're in room 5 , you can go (w)est or (e)ast." << endl;
+cin >> direction;
+if (direction == 'e')
+room = 6;
+if (direction == 'w')
+room = 4;
+break;
+case 6:
+cout << "you're in room 6 , you can go (n)orth or (w)est." << endl;
+cin >> direction;
+if (direction == 'n')
+room = 7;
+if (direction == 'w')
+room = 5;
+break;
+case 7:
+cout << "you're in room 7 , you can go (s)outh or (e)ast." << endl;
+cin >> direction;
+if (direction == 's')
+room = 6;
+if (direction == 'e')
+room = 8;
+break;
+case 8:
+cout << "you're in room 8 , you can go (n)orth or (w)est." << endl;
+cin >> direction;
+if (direction == 'n')
+room = 9;
+if (direction == 'w')
+room = 7;
+break;
+case 9:
+cout << "you're in room 9 , you can go (s)outh or (e)ast." << endl;
+cin >> direction;
+if (direction == 's')
+room = 8;
+if (direction == 'e')
+room = 10;
+break;
+case 10:
+cout << "you're in room 10 the final boss, press q to quit if you arent up for the challenge or (w)est to go back for anything you forgot" << endl;
+cin >> direction;
+if (direction == 'w')
+room = 9;
+break;
+
+
+
+
+}
+
+} while (direction != 'q');
+
+}
+
+
+
+void MonsterGen() {
+int num = rand() % 100;
+if (num < 15)
+cout << "a skeleton spawned!" << endl;
+else if (num < 20)
+cout << "a shadow lurker appears!!" << endl;
+else if (num < 50)
+cout << "a goblin pops out of nowhere and tries to take your stuff" << endl;
+else if (num < 75)
+cout << "a spider pops out from the shadows" << endl;
+else if (num < 100)
+cout << "a zombie is lurking in the shadows be careful" << endl;
+else
+cout << "nothing spawned" << endl;
+
+
+
+}
