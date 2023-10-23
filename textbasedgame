@@ -1,121 +1,174 @@
 #include<iostream>
 using namespace std;
 
-
-void MonsterGen();
-
+void BattleSystem();
+int MonsterGen();
+int PlayerHealth = 100;
 
 int main() {
-cout << "press q at anytime to quit the game" << endl;
+	srand(time(NULL));
+	cout << "press q at anytime to quit the game" << endl;
 
-char direction;
-int room = 1;
-do {
+	char direction = 'a';
+	int room = 1;
 
-switch (room) {
-case 1:
-cout << "you're in room 1, theres only 1 other door. go (e)ast." << endl;
-cin >> direction;
-if (direction == 'e')
-room = 2;
-break;
-case 2:
-cout << "you're in room 2, you can go (w)est or (n)orth or (s)outh." << endl;
-cin >> direction;
-if (direction == 'w')
-room = 1;
-if (direction == 'n')
-room = 3;
-if (direction == 's')
-room = 4;
-break;
-case 3:
-MonsterGen();
-cout << "you're in room 3, dead end you have to go back. go (s)outh." << endl;
-cin >> direction;
-if (direction == 's')
-room = 2;
-break;
-case 4:
-cout << "you're in room 4 , you can go (e)ast or (n)orth." << endl;
-cin >> direction;
-if (direction == 'n')
-room = 2;
-if (direction == 'e')
-room = 5;
-break;
-case 5:
-cout << "you're in room 5 , you can go (w)est or (e)ast." << endl;
-cin >> direction;
-if (direction == 'e')
-room = 6;
-if (direction == 'w')
-room = 4;
-break;
-case 6:
-cout << "you're in room 6 , you can go (n)orth or (w)est." << endl;
-cin >> direction;
-if (direction == 'n')
-room = 7;
-if (direction == 'w')
-room = 5;
-break;
-case 7:
-cout << "you're in room 7 , you can go (s)outh or (e)ast." << endl;
-cin >> direction;
-if (direction == 's')
-room = 6;
-if (direction == 'e')
-room = 8;
-break;
-case 8:
-cout << "you're in room 8 , you can go (n)orth or (w)est." << endl;
-cin >> direction;
-if (direction == 'n')
-room = 9;
-if (direction == 'w')
-room = 7;
-break;
-case 9:
-cout << "you're in room 9 , you can go (s)outh or (e)ast." << endl;
-cin >> direction;
-if (direction == 's')
-room = 8;
-if (direction == 'e')
-room = 10;
-break;
-case 10:
-cout << "you're in room 10 the final boss, press q to quit if you arent up for the challenge or (w)est to go back for anything you forgot" << endl;
-cin >> direction;
-if (direction == 'w')
-room = 9;
-break;
-
-
+	while (direction != 'q' && PlayerHealth >= 0) {
+		switch (room) {
+		case 1:
+			cout << "you're in room 1, theres only 1 other door. go (e)ast." << endl;
+			cin >> direction;
+			if (direction == 'e')
+				room = 2;
+			break;
+		case 2:
+			cout << "you're in room 2, you can go (w)est or (n)orth or (s)outh." << endl;
+			cin >> direction;
+			if (direction == 'w')
+				room = 1;
+			if (direction == 'n')
+				room = 3;
+			if (direction == 's')
+				room = 4;
+			break;
+		case 3:
+			BattleSystem();
+			cout << "you're in room 3, dead end you have to go back. go (s)outh." << endl;
+			cin >> direction;
+			if (direction == 's')
+				room = 2;
+			break;
+		case 4:
+			cout << "you're in room 4 , you can go (e)ast or (n)orth." << endl;
+			cin >> direction;
+			if (direction == 'n')
+				room = 2;
+			if (direction == 'e')
+				room = 5;
+			break;
+		case 5:
+			cout << "you're in room 5 , you can go (w)est or (e)ast." << endl;
+			cin >> direction;
+			if (direction == 'e')
+				room = 6;
+			if (direction == 'w')
+				room = 4;
+			break;
+		case 6:
+			cout << "you're in room 6 , you can go (n)orth or (w)est." << endl;
+			cin >> direction;
+			if (direction == 'n')
+				room = 7;
+			if (direction == 'w')
+				room = 5;
+			break;
+		case 7:
+			cout << "you're in room 7 , you can go (s)outh or (e)ast." << endl;
+			cin >> direction;
+			if (direction == 's')
+				room = 6;
+			if (direction == 'e')
+				room = 8;
+			break;
+		case 8:
+			cout << "you're in room 8 , you can go (n)orth or (w)est." << endl;
+			cin >> direction;
+			if (direction == 'n')
+				room = 9;
+			if (direction == 'w')
+				room = 7;
+			break;
+		case 9:
+			cout << "you're in room 9 , you can go (s)outh or (e)ast." << endl;
+			cin >> direction;
+			if (direction == 's')
+				room = 8;
+			if (direction == 'e')
+				room = 10;
+			break;
+		case 10:
+			cout << "you're in room 10 the final boss, press q to quit if you arent up for the challenge or (w)est to go back for anything you forgot" << endl;
+			cin >> direction;
+			if (direction == 'w')
+				room = 9;
+			break;
 
 
+
+
+		}
+
+	}
 }
 
-} while (direction != 'q');
 
+
+
+void BattleSystem() {
+	int MonsterType = MonsterGen();
+	int MonsterHealth = 0;
+	int MonsterDmg = 0;
+	int PlayerDmg = 0;
+
+	if (MonsterType == 1) {
+		MonsterHealth = 30;
+	}
+	if (MonsterType == 2) {
+		MonsterHealth = 40;
+	}
+	if (MonsterType == 3) {
+		MonsterHealth = 20;
+	}
+	if (MonsterType == 4) {
+		MonsterHealth = 10;
+	}
+	if (MonsterType == 5) {
+		MonsterHealth = 350;
+	}
+
+	if (MonsterType == 1) {
+		MonsterDmg = rand() % 20+1;
+	}
+	while (MonsterHealth > 0 && PlayerHealth > 0) {
+		cout << "monster bites you for" <<MonsterDmg<<"HP" << endl;
+		PlayerHealth -= MonsterDmg;
+		PlayerDmg = rand() % 76;
+		cout << "you attack the monster for"<<PlayerDmg<< "HP" << endl << endl;
+		MonsterHealth -= 10;
+		system("pause");
+		cout << "your health is now " << PlayerHealth << ", and the monsters health is " << MonsterHealth << endl;
+		system("pause");
+
+	}
+	if (MonsterHealth <= 0)
+		cout << "you defeated them!" << endl;
+	else
+		cout << "you died :(" << endl;
 }
 
 
-
-void MonsterGen() {
-int num = rand() % 100;
-if (num < 15)
-cout << "a skeleton spawned!" << endl;
-else if (num < 20)
-cout << "a shadow lurker appears!!" << endl;
-else if (num < 50)
-cout << "a goblin pops out of nowhere and tries to take your stuff" << endl;
-else if (num < 75)
-cout << "a spider pops out from the shadows" << endl;
-else if (num < 100)
-cout << "a zombie is lurking in the shadows be careful" << endl;
-else
-cout << "nothing spawned" << endl;
+int MonsterGen() {
+	int num = rand() % 100;
+	if (num < 15) {
+		cout << "a skeleton spawned!" << endl;
+		return 1;
+	}
+	else if (num < 20) {
+		cout << "a shadow lurker appears!!" << endl;
+		return 2;
+	}
+	else if (num < 50) {
+	cout << "a goblin pops out of nowhere and tries to take your stuff" << endl;
+	return 3;
+}
+	else if (num < 75) {
+		cout << "a spider pops out from the shadows" << endl;
+		return 4;
+	}
+	else if (num < 100) {
+		cout << "a zombie is lurking in the shadows be careful" << endl;
+		return 5;
+	}
+	
 
 
 
