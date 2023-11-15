@@ -4,47 +4,107 @@ using namespace std;
 void BattleSystem();
 int MonsterGen();
 int PlayerHealth = 100;
+string inventory[10];
+int dabloons = 100;
+void itemDropper();
+void Shop();
+void PetActions();
 
 int main() {
+	for (int i = 0; i < 10; i++)
+		inventory[i] = " ";
+
+	cout << "you wake up in the deep depths of what seems to be a school building?" << endl;
+	cout << "covered in cobwebs and dust you dust yourself off and take a look around" << endl;
+	cout << "this place that seems to be a cellar is to dark for you to really see" << endl;
+	cout << "you can make out the faint shapes of many shelves" << endl;
+	cout << "you can't really make out anything it is way to dark all you can see is a faint glow of what seems to be a doorway?" << endl;
+
 	srand(time(NULL));
-	cout << "press q at anytime to quit the game" << endl;
 
 	char direction = 'a';
 	int room = 1;
+	int affinity = 0;
 
 	while (direction != 'q' && PlayerHealth >= 0) {
+
+		cout << "your inventory" << endl;
+		for (int i = 0; i < 10; i++)
+			cout << inventory[i] << " ";
+		cout << endl;
+
 		switch (room) {
 		case 1:
 			cout << "you're in room 1, theres only 1 other door. go (e)ast." << endl;
+			cout << "your pet jamal would like to be (p)et." << endl;
+			if (inventory[0] != "key")
+				cout << " you see a shiny key on the ground." << endl;
 			cin >> direction;
 			if (direction == 'e')
 				room = 2;
+			if (direction == 'k') {
+				cout << "you got a shiny key!" << endl;
+				inventory[0] = "key";
+			}
+			if (direction == 'p') {
+				cout << "you pet jamal hes happy:)" << endl;
+				affinity += 10;
+				cout << "jamals affinity is now " << affinity << endl;
+			}
 			break;
 		case 2:
 			cout << "you're in room 2, you can go (w)est or (n)orth or (s)outh." << endl;
+			cout << "jamal sits patiently waiting for a (p)at on the head." << endl;
 			cin >> direction;
 			if (direction == 'w')
 				room = 1;
 			if (direction == 'n')
-				room = 3;
+				if (inventory[0] == "key") {
+					room = 3;
+					cout << "you unlock the door with the key!" << endl;
+					inventory[0] = " ";
+				}
+				else
+					cout << "the door is locked!" << endl;
+
 			if (direction == 's')
 				room = 4;
+			if (direction == 'p') {
+				cout << "you pet jamal hes happy:)" << endl;
+				affinity += 10;
+				cout << "jamals affinity is now " << affinity << endl;
+			}
+			PetActions();
 			break;
 		case 3:
 			BattleSystem();
 			cout << "you're in room 3, dead end you have to go back. go (s)outh." << endl;
+			cout << "out of the corner of your eye you see a (c)hest!" << endl;
+			cout << "(j)amal looks at you intently." << endl;
 			cin >> direction;
 			if (direction == 's')
 				room = 2;
+			if (direction == 'c')
+				itemDropper();
+			if (direction == 'j') {
+				cout << "you pet jamal hes happy:)" << endl;
+				affinity += 10;
+				cout << "jamals affinity is now " << affinity << endl;
+			}
 			break;
 		case 4:
 			cout << "you're in room 4 , you can go (e)ast or (n)orth." << endl;
+			cout << "there's a sho(p) built into the wall" << endl;
 			cin >> direction;
 			if (direction == 'n')
 				room = 2;
 			if (direction == 'e')
 				room = 5;
+			if (direction == 'p')
+				Shop();
+			PetActions();
 			break;
+
 		case 5:
 			cout << "you're in room 5 , you can go (w)est or (e)ast." << endl;
 			cin >> direction;
@@ -52,6 +112,7 @@ int main() {
 				room = 6;
 			if (direction == 'w')
 				room = 4;
+			PetActions();
 			break;
 		case 6:
 			cout << "you're in room 6 , you can go (n)orth or (w)est." << endl;
@@ -60,6 +121,7 @@ int main() {
 				room = 7;
 			if (direction == 'w')
 				room = 5;
+			PetActions();
 			break;
 		case 7:
 			cout << "you're in room 7 , you can go (s)outh or (e)ast." << endl;
@@ -68,6 +130,7 @@ int main() {
 				room = 6;
 			if (direction == 'e')
 				room = 8;
+			PetActions();
 			break;
 		case 8:
 			cout << "you're in room 8 , you can go (n)orth or (w)est." << endl;
@@ -86,7 +149,7 @@ int main() {
 				room = 10;
 			break;
 		case 10:
-			cout << "you're in room 10 the final boss, press q to quit if you arent up for the challenge or (w)est to go back for anything you forgot" << endl;
+			cout << "you're in room 10 (w)est to go back for anything you forgot" << endl;
 			cin >> direction;
 			if (direction == 'w')
 				room = 9;
@@ -122,16 +185,57 @@ void BattleSystem() {
 		MonsterHealth = 10;
 	}
 	if (MonsterType == 5) {
-		MonsterHealth = 350;
+		MonsterHealth = 35;
 	}
 
 	if (MonsterType == 1) {
 		MonsterDmg = rand() % 20+1;
 	}
+	if (MonsterType == 2) {
+		MonsterDmg = rand() % 25+1;
+	}
+	if (MonsterType == 3) {
+		MonsterDmg = rand() % 10+1;
+	}
+	if (MonsterType == 4) {
+		MonsterDmg = rand() % 5+1;
+	}
+	if (MonsterType == 5) {
+		MonsterDmg = rand() % 15+1;
+	}
+
 	while (MonsterHealth > 0 && PlayerHealth > 0) {
+		if (inventory[3] == "kitana") {
+			PlayerDmg = rand() % 150 + 35;
+			cout << "youre enchanted blade does more damage the monster took more damage." << endl;
+		}
+		else {
+			cout << "you attack for " << PlayerDmg << " HP." << endl;
+			MonsterHealth -= PlayerDmg; 
+
+		}
+		if (inventory[4] == "sword") {
+			PlayerDmg = rand() % 80;
+			cout << "youre sword does some extra damage." << endl;
+			MonsterHealth -= PlayerDmg;
+		}
+		else {
+			cout << "you attack for " << PlayerDmg << " HP." << endl;
+			MonsterHealth -= PlayerDmg;
+			
+		}
+		if (inventory[1] == "shield") {
+			MonsterDmg /= 2;
+			cout << "The monster attacks you for " << MonsterDmg << " HP." << endl;
+			PlayerHealth -= MonsterDmg;
+		}
+		else {
+			cout << "the monster attacks you for " << MonsterDmg << " HP." << endl;
+
+		}
 		cout << "monster bites you for" <<MonsterDmg<<"HP" << endl;
 		PlayerHealth -= MonsterDmg;
-		PlayerDmg = rand() % 76;
+		PlayerDmg = rand() % 45;
 		cout << "you attack the monster for"<<PlayerDmg<< "HP" << endl << endl;
 		MonsterHealth -= 10;
 		system("pause");
@@ -172,4 +276,85 @@ int MonsterGen() {
 
 
 
+}
+
+void PetActions() {
+	int num = rand() % 100;
+	if (num < 20)
+		cout << "jamal viciously licks a rock." << endl;
+
+	else if (num < 45)
+		cout << "jamal lets out a low growl." << endl;
+
+	else if (num < 55)
+		cout << "jamal stares deep into your eyes there's a twinkle." << endl;
+
+	else if (num < 75)
+		cout << "jamal sits down." << endl;
+	else
+		cout << "jamal chases his own tail." << endl;
+
+}
+
+void itemDropper() {
+	int num = rand() % 100;
+	if (num < 35) {
+		cout << "you got a shield" << endl;
+		inventory[1] = "shield";
+	}
+	else if (num < 60) {
+		cout << "you got a lantern?" << endl;
+		inventory[2] = "lantern";
+	}
+	else if (num < 70) {
+		cout << "you got an enchanted kitana" << endl;
+		inventory[3] = "kitana";
+	}
+	else {
+		cout << "you got 10 dabloons" << endl;
+		dabloons += 10;
+	}
+
+}
+
+void Shop() {
+	int input = 2345646;
+	while (input != 0) {
+		cout << "welcome to the shop!" << endl;
+		cout << "you have " << dabloons << " dabloons." << endl;
+		cout << "items for sale:" << endl;
+		cout << "1)sword: 20" << endl;
+		cout << "2)potion: 10" << endl;
+		cout << "3)armor: 50" << endl;
+		cout << "press 0 to exit the shop" << endl;
+		cin >> input;
+		if (input == 1) {
+			if (dabloons >= 20) {
+				cout << "you bought a sword!" << endl;
+				inventory[4] = "sword";
+				dabloons -= 20;
+			}
+			else
+				cout << "sorry, you don't have enough dabloons" << endl;
+		}
+		if (input == 2) {
+			if (dabloons >= 10) {
+				cout << "you bought a potion!" << endl;
+				inventory[5] = "potion";
+				dabloons -= 10;
+			}
+			else
+				cout << "you don't have enough dabloons" << endl;
+		}
+		if (input == 3) {
+			if (dabloons >= 50) {
+				cout << "you bought armor!" << endl;
+				inventory[6] = "armor";
+				dabloons -= 50;
+			}
+			else
+				cout << "you don't have enough dabloons" << endl;
+		}
+
+	}
 }
