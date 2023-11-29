@@ -1,3 +1,4 @@
+#include<Windows.h>
 #include<iostream>
 using namespace std;
 
@@ -18,7 +19,7 @@ int main() {
 	cout << "covered in cobwebs and dust you dust yourself off and take a look around" << endl;
 	cout << "this place that seems to be a cellar is to dark for you to really see" << endl;
 	cout << "you can make out the faint shapes of many shelves" << endl;
-	cout << "you can't really make out anything it is way to dark all you can see is a faint glow of what seems to be a doorway?" << endl;
+	cout << "you can't really see anything it is way to dark all you can see is a faint glow of what seems to be a doorway?" << endl;
 
 	srand(time(NULL));
 
@@ -35,6 +36,7 @@ int main() {
 
 		switch (room) {
 		case 1:
+			system("color 73");
 			cout << "you're in room 1, theres only 1 other door. go (e)ast." << endl;
 			cout << "your pet jamal would like to be (p)et." << endl;
 			if (inventory[0] != "key")
@@ -53,6 +55,7 @@ int main() {
 			}
 			break;
 		case 2:
+			system("color CF");
 			cout << "you're in room 2, you can go (w)est or (n)orth or (s)outh." << endl;
 			cout << "jamal sits patiently waiting for a (p)at on the head." << endl;
 			cin >> direction;
@@ -77,7 +80,7 @@ int main() {
 			PetActions();
 			break;
 		case 3:
-			BattleSystem();
+		 BattleSystem();
 			cout << "you're in room 3, dead end you have to go back. go (s)outh." << endl;
 			cout << "out of the corner of your eye you see a (c)hest!" << endl;
 			cout << "(j)amal looks at you intently." << endl;
@@ -149,7 +152,8 @@ int main() {
 				room = 10;
 			break;
 		case 10:
-			cout << "you're in room 10 (w)est to go back for anything you forgot" << endl;
+			cout << "you reached the exit looks like its the end of the road for us go (w)est to go back for anything you forgot. But other then that you're on you own to explore the wasteland before you." << endl;
+			cout << " till strangers meet again." << endl;
 			cin >> direction;
 			if (direction == 'w')
 				room = 9;
@@ -209,30 +213,28 @@ void BattleSystem() {
 			PlayerDmg = rand() % 150 + 35;
 			cout << "youre enchanted blade does more damage the monster took more damage." << endl;
 		}
-		else {
-			cout << "you attack for " << PlayerDmg << " HP." << endl;
-			MonsterHealth -= PlayerDmg; 
-
-		}
+		
 		if (inventory[4] == "sword") {
 			PlayerDmg = rand() % 80;
 			cout << "youre sword does some extra damage." << endl;
 			MonsterHealth -= PlayerDmg;
 		}
-		else {
-			cout << "you attack for " << PlayerDmg << " HP." << endl;
-			MonsterHealth -= PlayerDmg;
-			
-		}
+		
 		if (inventory[1] == "shield") {
 			MonsterDmg /= 2;
 			cout << "The monster attacks you for " << MonsterDmg << " HP." << endl;
 			PlayerHealth -= MonsterDmg;
 		}
-		else {
-			cout << "the monster attacks you for " << MonsterDmg << " HP." << endl;
-
+		
+		if (inventory[6] == "armor") {
+			MonsterDmg /= 2;
+			cout << "The monster attacks you for " << MonsterDmg << " HP." << endl;
+			PlayerHealth -= MonsterDmg;
 		}
+		if (inventory[5] == "potion") {
+			PlayerHealth += 30;
+		}
+		
 		cout << "monster bites you for" <<MonsterDmg<<"HP" << endl;
 		PlayerHealth -= MonsterDmg;
 		PlayerDmg = rand() % 45;
@@ -308,6 +310,10 @@ void itemDropper() {
 	}
 	else if (num < 70) {
 		cout << "you got an enchanted kitana" << endl;
+		cout << "              /\                               ______,....----," << endl; 
+		cout << "/VVVVVVVVVVVVVV|===================""""""""""""       ___,..-'" << endl;
+		cout << "`^^^^^^^^^^^^^^|======================----------""""""" << endl;
+		cout << "              \/" << endl;
 		inventory[3] = "kitana";
 	}
 	else {
