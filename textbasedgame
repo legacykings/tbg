@@ -13,6 +13,7 @@ void itemDropper();
 void Shop();
 void PetActions();
 
+
 int main() { // main game loop
 	for (int i = 0; i < 10; i++) // invetory slots
 		inventory[i] = " ";
@@ -26,11 +27,11 @@ int main() { // main game loop
 
 	srand(time(NULL));
 
-	char direction = 'a';
+	string direction = "a";
 	int room = 1;
 	int affinity = 0;
 
-	while (direction != 'q' && PlayerHealth >= 0) {
+	while (direction != "q" && PlayerHealth >= 0) {
 // inventory pops up in every room
 		cout << "your inventory" << endl;
 		for (int i = 0; i < 10; i++)
@@ -46,13 +47,13 @@ int main() { // main game loop
 			if (inventory[0] != "key")
 				cout << " you see a shiny (k)ey on the ground." << endl;
 			cin >> direction;
-			if (direction == 'e')
+			if (direction == "east" || direction == "s")
 				room = 2;
-			if (direction == 'k') {
+			if (direction == "key" || direction == "k") {
 				cout << "you got a shiny key!" << endl;
 				inventory[0] = "key";
 			}
-			if (direction == 'p') {
+			if (direction == "pet" || direction == "p") {
 				cout << "you pet jamal hes happy:)" << endl;
 				affinity += 10;
 				cout << "jamals affinity is now " << affinity << endl;
@@ -65,9 +66,9 @@ int main() { // main game loop
 			cout << "There is a door to the (w)est of you. To the (n)orth you can make out a door overgrown with this weird moss to the (s)outh you can see another door." << endl;
 			cout << "jamal sits patiently waiting for a (p)at on the head." << endl;
 			cin >> direction;
-			if (direction == 'w')
+			if (direction == "w" || direction == "west")
 				room = 1;
-			if (direction == 'n')
+			if (direction == "n" || direction == "north")
 				if (inventory[0] == "key") {
 					room = 3;
 					cout << "you unlock the door with the key!" << endl;
@@ -76,9 +77,9 @@ int main() { // main game loop
 				else
 					cout << "the door is locked!" << endl;
 
-			if (direction == 's')
+			if (direction == "s" || direction == "south")
 				room = 4;
-			if (direction == 'p') {
+			if (direction == "p" || direction == "pet") {
 				cout << "you pet jamal hes happy:)" << endl;
 				affinity += 10;
 				cout << "jamals affinity is now " << affinity << endl;
@@ -92,11 +93,11 @@ int main() { // main game loop
 			cout << "out of the corner of your eye you see a open (c)abinet" << endl;
 			cout << "(j)amal looks at you intently." << endl;
 			cin >> direction;
-			if (direction == 's')
+			if (direction == "s" || direction == "south")
 				room = 2;
-			if (direction == 'c')
+			if (direction == "c" || direction == "investigate")
 				itemDropper();
-			if (direction == 'j') {
+			if (direction == "j") {
 				cout << "you pet jamal hes happy:)" << endl;
 				affinity += 10;
 				cout << "jamals affinity is now " << affinity << endl;
@@ -106,30 +107,31 @@ int main() { // main game loop
 			cout << "you seem to be in a room that is suprisingly clean like a decontamination checkpoint, you see a green door to the (e)ast and (n)orth the way you came." << endl;
 			cout << "there's a sho(p) built into the wall" << endl;
 			cin >> direction;
-			if (direction == 'n')
+			if (direction == "n" || direction == "north")
 				room = 2;
-			if (direction == 'e')
+			if (direction == "e" || direction == "east")
 				room = 5;
-			if (direction == 'p')
+			if (direction == "p" || direction == "shop")
 				Shop(); 
 			PetActions();
 			break;
 
 		case 5:
-			cout << "you walk through the door to the east and you seem to be in an old clinical rooms it looks like a surgery preperation room? weird. The way you came is (w)est and you see a door to the (e)ast." << endl;
+			cout << "you walk through the door to the east and you seem to be in an old clinical rooms it looks like a surgery preperation room? weird." << endl;
+			cout << "The way you came is (w)est and you see a door to the(e)ast." << endl;
 			cin >> direction;
-			if (direction == 'e')
+			if (direction == "e" || direction == "east")
 				room = 6;
-			if (direction == 'w')
+			if (direction == "w" || direction == "west")
 				room = 4;
 			PetActions();
 			break;
 		case 6:
 			cout << "you go east and appear to enter a weird room with a ton of machines like x ray machine and stuff maybe this is the surgery room, you see a door covered in what seems to be a crimson liquid to the (n)orth and back the way you came (w)est." << endl;
 			cin >> direction;
-			if (direction == 'n')
+			if (direction == "n" || direction == "north")
 				room = 7;
-			if (direction == 'w')
+			if (direction == "w" || direction == "west")
 				room = 5;
 			PetActions();
 			break;
@@ -137,35 +139,35 @@ int main() { // main game loop
 			BattleSystem();
 			cout << "you're in a room full of this fungus it odly kind of soothing tho like being put in a trance but you seem to be in a old classroom or more bandoned , you can go (s)outh or (e)ast." << endl;
 			cin >> direction;
-			if (direction == 's')
+			if (direction == "s" || direction == "south")
 				room = 6;
-			if (direction == 'e')
+			if (direction == "e" || direction == "east")
 				room = 8;
 			PetActions();
 			break;
 		case 8:
 			cout << "you're in a old laboratory room it seems they conducted experiments here before , you can go (n)orth or (w)est." << endl;
 			cin >> direction;
-			if (direction == 'n')
+			if (direction == "n" || direction == "north")
 				room = 9;
-			if (direction == 'w')
+			if (direction == "w" || direction == "west")
 				room = 7;
 			break;
 		case 9:
 			BattleSystem();
 			cout << "you're in the test subjects room there are test subjects evcerywhere some even got out , you can go (s)outh or (e)ast." << endl;
 			cin >> direction;
-			if (direction == 's')
+			if (direction == "s" || direction == "south")
 				room = 8;
-			if (direction == 'e')
+			if (direction == "e" || direction == "east")
 				room = 10;
 			break;
 		case 10:
 			cout << "you reached the exit looks like its the end of the road for us go (w)est to go back for anything you forgot. But other then that you're on you own to explore the wasteland before you." << endl;
 			cout << " till strangers meet again." << endl;
-			cout << "if you dont go back press q to exit." << endl;
+			cout << "if you dont go back press q to exit the game." << endl;
 			cin >> direction;
-			if (direction == 'w')
+			if (direction == "w" || direction == "west")
 				room = 9;
 			break;
 
