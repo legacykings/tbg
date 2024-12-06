@@ -47,7 +47,7 @@ int main() { // main game loop
 			if (inventory[0] != "key")
 				cout << " you see a shiny (k)ey on the ground." << endl;
 			cin >> direction;
-			if (direction == "east" || direction == "s")
+			if (direction == "east" || direction == "e")
 				room = 2;
 			if (direction == "key" || direction == "k") {
 				cout << "you got a shiny key!" << endl;
